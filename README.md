@@ -10,33 +10,33 @@ Find the first index of the maximum value in an array.
 - `bf16_argmax_partial_kernel`. The maximum value and corresponding index is found for each block.
 - `argmax_final_kernel`. Finds the maximum value and corresponding index based on the maximums from each block.
 
-### [`GroupQueryAttention.cuh`](src/gpu_ops/GroupQueryAttention.cu)
+### [`GroupQueryAttention.cuh`](src/gpu_ops/GroupQueryAttention.cuh)
 Performs group query attention
 - `group_query_attention_kernel`. Performs grouped query attention. A block is launched for each head, and each thread corresponds with a dimension in the head.
 
-### [`LayerNorm.cuh`](src/gpu_ops/LayerNorm.cu)
+### [`LayerNorm.cu`](src/gpu_ops/LayerNorm.cu)
 Performs layer normalization $y = \frac{\gamma_i x}{\sqrt{mean(x^2) + \epsilon}}$
 - `layernorm_partial_sum_kernel`. Computes each block's contribution to $mean(x^2)$
 - `layernorm_scale_kernel`. Combines the sum of each block's contribution to $mean(x^2)$
 - `layernorm_apply_kernel`. Applies the scaling: multiply by $\gamma_i$ weight and divide everything by $\sqrt{mean(x^2) + \epsilon}$
 
-### [`MatrixVectorMultiply.cuh`](src/gpu_ops/MatrixVectorMultiply.cu)
+### [`MatrixVectorMultiply.cu`](src/gpu_ops/MatrixVectorMultiply.cu)
 Does a matrix vector multiplication.
 - `bf16_matmul_kernel`. Performs the matrix vector multiplication. One block for each output dimension.
 
-### [`RoPE.cuh`](src/gpu_ops/RoPE.cu)
+### [`RoPE.cu`](src/gpu_ops/RoPE.cu)
 Applies the Rotary Position Embedding to the embeddings.
 - `apply_rope_to_qk_kernel`. Modifies the embeddings in place with the PEs.
 
-### [`SiLUMult.cuh`](src/gpu_ops/SiLUMult.cu)
+### [`SiLUMult.cu`](src/gpu_ops/SiLUMult.cu)
 Helps perform the SwiGLU operation.
 - `silu_mult_kernel`. Performs SiLU(gate_proj(ffn_input)) $\otimes$ up_proj(ffn_input)
 
-### [`Qwen2Layer.cuh`](src/qwen2/Qwen2Layer.cu)
+### [`Qwen2Layer.cuh`](src/qwen2/Qwen2Layer.cuh)
 A single layer in the decoder-based LLM.
 - `bf16_add_in_place_kernel`. In place vector additions used for the residual connections.
 
-### [`Qwen2Model.cuh`](src/qwen2/Qwen2Model.cu)
+### [`Qwen2Model.cuh`](src/qwen2/Qwen2Model.cuh)
 No custom kernels in this file. It's mainly LLM orchestration code: load embedding, run embeddings through transformer layers, convert logits to token distribution, etc.
 
 
