@@ -11,11 +11,11 @@ Find the first index of the maximum value in an array.
 - `argmax_final_kernel`. Finds the maximum value and corresponding index based on the maximums from each block.
 
 ### [`GroupQueryAttention.cuh`](src/gpu_ops/GroupQueryAttention.cuh)
-Performs group query attention
+Performs group query attention with flash attention.
 - `group_query_attention_kernel`. Performs grouped query attention. A block is launched for each head, and each thread corresponds with a dimension in the head.
 
 ### [`LayerNorm.cu`](src/gpu_ops/LayerNorm.cu)
-Performs layer normalization $y = \frac{\gamma_i x}{\sqrt{mean(x^2) + \epsilon}}$
+Performs layer normalization $y = \frac{\gamma_i x}{\sqrt{mean(x^2) + \epsilon}}$.
 - `layernorm_partial_sum_kernel`. Computes each block's contribution to $mean(x^2)$
 - `layernorm_scale_kernel`. Combines the sum of each block's contribution to $mean(x^2)$
 - `layernorm_apply_kernel`. Applies the scaling: multiply by $\gamma_i$ weight and divide everything by $\sqrt{mean(x^2) + \epsilon}$
